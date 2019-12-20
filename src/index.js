@@ -12,7 +12,7 @@ class App extends React.Component {
     ],
     compteur: 0
   };
-
+  // salut
   handleClick = () => {
     this.setState({ compteur: this.state.compteur + 1 });
     console.log(this.state);
