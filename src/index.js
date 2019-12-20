@@ -9,32 +9,33 @@ class App extends React.Component {
       { id: 1, nom: "Antoine" },
       { id: 2, nom: "Julien" },
       { id: 3, nom: "Marco" }
-    ],
-    compteur: 0
+    ]
   };
   // salut
-  handleClick = () => {
-    this.setState({ compteur: this.state.compteur + 1 });
-    console.log(this.state);
+  handleDelete = id => {
+    const clients = this.state.clients.slice();
+    const index = clients.findIndex(function(client) {
+      return client.id === id;
+    });
+    clients.splice(index, 1);
+    this.setState({ clients: clients });
   };
   render() {
     const title = "Liste des clients";
-    this.state.clients.map(client => (
-      <li class="list-group-item">
-        {client.nom} <button class="btn btn-danger">X</button>
-      </li>
-    ));
+
     return (
       <div class="text-center pt-5">
         <h1>{title}</h1>
-        <h3>{this.state.compteur}</h3>
-        <button onClick={this.handleClick} class="btn btn-success mb-5">
-          Click me
-        </button>
         <ul class="list-group">
           {this.state.clients.map(client => (
             <li class="list-group-item">
-              {client.nom} <button class="btn btn-danger">X</button>
+              {client.nom}{" "}
+              <button
+                class="btn btn-danger"
+                onClick={() => this.handleDelete(client.id)}
+              >
+                X
+              </button>
             </li>
           ))}
         </ul>
