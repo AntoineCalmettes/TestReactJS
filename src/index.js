@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import "./styles.css";
 
 class App extends React.Component {
+  clientInput = React.createRef();
   state = {
     clients: [
       { id: 1, nom: "Antoine" },
@@ -19,6 +20,11 @@ class App extends React.Component {
     });
     clients.splice(index, 1);
     this.setState({ clients: clients });
+  };
+
+  handleSubmit = event => {
+    event.preventDefault();
+    console.log(this.clientInput);
   };
   render() {
     const title = "Liste des clients";
@@ -39,8 +45,13 @@ class App extends React.Component {
             </li>
           ))}
         </ul>
-        <form>
-          <input type="text" placeholder="Ajouter un client" class="mr-2" />
+        <form onSubmit={this.handleSubmit}>
+          <input
+            ref={this.clientInput}
+            type="text"
+            placeholder="Ajouter un client"
+            class="mr-2"
+          />
           <button class="btn btn-primary">Confirmer</button>
         </form>
       </div>
