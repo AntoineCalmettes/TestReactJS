@@ -9,7 +9,13 @@ class App extends React.Component {
       { id: 1, nom: "Antoine" },
       { id: 2, nom: "Julien" },
       { id: 3, nom: "Marco" }
-    ]
+    ],
+    compteur: 0
+  };
+
+  handleClick = () => {
+    this.setState({ compteur: this.state.compteur + 1 });
+    console.log(this.state);
   };
   render() {
     const title = "Liste des clients";
@@ -21,6 +27,10 @@ class App extends React.Component {
     return (
       <div class="text-center pt-5">
         <h1>{title}</h1>
+        <h3>{this.state.compteur}</h3>
+        <button onClick={this.handleClick} class="btn btn-success mb-5">
+          Click me
+        </button>
         <ul class="list-group">
           {this.state.clients.map(client => (
             <li class="list-group-item">
