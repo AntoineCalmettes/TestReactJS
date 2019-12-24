@@ -4,13 +4,13 @@ import ReactDOM from "react-dom";
 import "./styles.css";
 
 class App extends React.Component {
-  clientInput = React.createRef();
   state = {
     clients: [
       { id: 1, nom: "Antoine" },
       { id: 2, nom: "Julien" },
       { id: 3, nom: "Marco" }
-    ]
+    ],
+    nouveauClient: ""
   };
   // salut
   handleDelete = id => {
@@ -24,7 +24,21 @@ class App extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    console.log(this.clientInput);
+
+    const id = new Date().getTime();
+    const nom = this.state.nouveauClient;
+
+    const client = { id: id, nom: nom };
+
+    const clients = this.state.clients.slice();
+    clients.push(client);
+
+    this.setState({ clients: clients, nouveauClient: "" });
+  };
+  handleChange = event => {
+    const value = event.currentTarget.value;
+
+    this.setState({ nouveauClient: value });
   };
   render() {
     const title = "Liste des clients";
@@ -47,7 +61,8 @@ class App extends React.Component {
         </ul>
         <form onSubmit={this.handleSubmit}>
           <input
-            ref={this.clientInput}
+            value={this.state.nouveauClient}
+            onChange={this.handleChange}
             type="text"
             placeholder="Ajouter un client"
             class="mr-2"
